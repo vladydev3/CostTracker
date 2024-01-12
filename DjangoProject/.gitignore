@@ -1,0 +1,15 @@
+# Python
+*.pyc
+__pycache__/
+venv/
+*.env
+
+# IDE
+.vscode/
+*.code-workspace
+
+# Dependency directories
+env/
+lib/
+bin/
+include/
