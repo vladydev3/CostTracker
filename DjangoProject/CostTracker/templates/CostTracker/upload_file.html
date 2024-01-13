@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Upload File</title>
+  </head>
+  <body>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="file">File:</label><br />
+      <input type="file" id="file" name="file" /><br />
+      <label for="cost_id">Cost ID:</label><br />
+      <input type="text" id="cost_id" name="cost_id" /><br />
+      <input type="submit" value="Upload" />
+    </form>
+  </body>
+</html>
