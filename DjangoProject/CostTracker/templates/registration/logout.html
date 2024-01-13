@@ -1,10 +1,1 @@
-<!-- FILEPATH: /d:/coding/prueba tecnica/DjangoProject/CostTracker/templates/registration/logout.html -->
-
-{% extends 'base.html' %} {% block content %}
-<h1>Logout</h1>
-<p>Are you sure you want to logout?</p>
-<form method="post" action="{% url 'logout' %}">
-  {% csrf_token %}
-  <button type="submit">Logout</button>
-</form>
-{% endblock %}
+{% extends 'base.html' %} {% block content %} {% endblock %}

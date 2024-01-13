@@ -6,9 +6,9 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Your Project API",
+      title="Cost Tracker API",
       default_version='v1',
-      description="API documentation for Your Project",
+      description="API documentation for Cost Tracker",
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),

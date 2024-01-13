@@ -1,18 +1,36 @@
 {% extends 'base.html' %} {% block content %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Upload File</title>
-  </head>
-  <body>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <label for="file">File:</label><br />
-      <input type="file" id="file" name="file" /><br />
-      <label for="cost_id">Cost ID:</label><br />
-      <input type="text" id="cost_id" name="cost_id" /><br />
-      <input type="submit" value="Upload" />
-    </form>
-  </body>
-</html>
+<form method="post" enctype="multipart/form-data" class="space-y-4">
+  {% csrf_token %}
+  <div>
+    <label for="file" class="block text-sm font-medium text-gray-700"
+      >File:</label
+    >
+    <input
+      type="file"
+      id="file"
+      name="file"
+      required
+      class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+    />
+  </div>
+  <div>
+    <label for="cost_id" class="block text-sm font-medium text-gray-700"
+      >Cost ID:</label
+    >
+    <input
+      type="text"
+      id="cost_id"
+      name="cost_id"
+      required
+      class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+    />
+  </div>
+  <div>
+    <input
+      type="submit"
+      value="Upload"
+      class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+    />
+  </div>
+</form>
 {% endblock %}
