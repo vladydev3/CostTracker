@@ -2,11 +2,11 @@
 <form method="post">
   {% csrf_token %}
   <label for="category">Category:</label><br />
-  <input type="text" id="category" name="category" /><br />
+  <input type="text" id="category" name="category" required /><br />
   <label for="amount">Amount:</label><br />
-  <input type="text" id="amount" name="amount" /><br />
+  <input type="text" id="amount" name="amount" required /><br />
   <label for="date">Date:</label><br />
-  <input type="date" id="date" name="date" /><br />
+  <input type="date" id="date" name="date" required /><br />
   <input type="submit" value="Submit" />
 </form>
 {% endblock %}
