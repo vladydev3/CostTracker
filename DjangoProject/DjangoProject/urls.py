@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('CostTracker.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 # This is for serving static files in development

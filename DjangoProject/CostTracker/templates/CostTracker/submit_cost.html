@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Submit Cost</title>
-  </head>
-  <body>
-    <form method="post">
-      {% csrf_token %}
-      <label for="category">Category:</label><br />
-      <input type="text" id="category" name="category" /><br />
-      <label for="amount">Amount:</label><br />
-      <input type="text" id="amount" name="amount" /><br />
-      <label for="date">Date:</label><br />
-      <input type="date" id="date" name="date" /><br />
-      <input type="submit" value="Submit" />
-    </form>
-  </body>
-</html>
+{% extends 'base.html' %} {% block content %}
+<form method="post">
+  {% csrf_token %}
+  <label for="category">Category:</label><br />
+  <input type="text" id="category" name="category" /><br />
+  <label for="amount">Amount:</label><br />
+  <input type="text" id="amount" name="amount" /><br />
+  <label for="date">Date:</label><br />
+  <input type="date" id="date" name="date" /><br />
+  <input type="submit" value="Submit" />
+</form>
+{% endblock %}

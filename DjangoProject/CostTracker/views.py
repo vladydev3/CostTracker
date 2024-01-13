@@ -1,61 +1,57 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from .models import Cost
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+from rest_framework.views import APIView
 
-def submit_cost(request):
-    """
-    Handles the submission of a cost.
 
-    If the request method is POST, it creates a new cost with the category, amount, and date provided in the request.
-    If the request method is not POST, it renders the 'submit_cost.html' template.
-
-    Returns:
-        JsonResponse: A message indicating the success of the cost creation if the request method is POST.
-        HttpResponse: The rendered 'submit_cost.html' template if the request method is not POST.
-    """
+def register(request):
     if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+
+class SubmitCostView(APIView):
+    @swagger_auto_schema(responses={201: openapi.Response(description="Cost created successfully!", schema=openapi.Schema(type=openapi.TYPE_OBJECT))})
+    @login_required
+    def post(self, request):
         category = request.POST['category']
         amount = request.POST['amount']
         date = request.POST['date']
         cost = Cost(category=category, amount=amount, date=date)
         cost.save()
         return JsonResponse({'message': 'Cost created successfully!'}, status=201)
-    else :
+
+    def get(self, request):
         return render(request, 'CostTracker/submit_cost.html')
 
-def upload_file(request):
-    """
-    Handles the uploading of a file to a cost.
 
-    If the request method is POST, it attaches a file to the cost with the given ID.
-    If the request method is not POST, it renders the 'upload_file.html' template.
-
-    Returns:
-        JsonResponse: A message indicating the success of the file upload if the request method is POST.
-        HttpResponse: The rendered 'upload_file.html' template if the request method is not POST.
-    """
-    if request.method == 'POST':
+class UploadFileView(APIView):
+    @swagger_auto_schema(responses={201: openapi.Response(description="File uploaded successfully!", schema=openapi.Schema(type=openapi.TYPE_OBJECT))})
+    @login_required
+    def post(self, request):
         file = request.FILES['file']
         cost_id = request.POST['cost_id']
         cost = Cost.objects.get(id=cost_id)
         cost.file.save(file.name, file, save=True)
         return JsonResponse({'message': 'File uploaded successfully!'}, status=201)
-    else:
+
+    def get(self, request):
         return render(request, 'CostTracker/upload_file.html')
 
-def get_costs(request):
-    """
-    Retrieves a list of costs with optional filters for category, amount, and date.
 
-    If the request method is GET, it retrieves all costs that match the provided filters.
-    If no filters are provided, it retrieves all costs.
-    If the request method is not GET, it renders the 'get_costs.html' template.
-
-    Returns:
-        JsonResponse: A list of costs that match the provided filters if the request method is GET.
-        HttpResponse: The rendered 'get_costs.html' template if the request method is not GET.
-    """
-    if request.method == 'GET':
+class GetCostsView(APIView):
+    @swagger_auto_schema(responses={200: openapi.Response(description="A list of costs", schema=openapi.Schema(type=openapi.TYPE_OBJECT))})
+    @login_required
+    def get(self, request):
         if request.GET:
             category = request.GET.get('category')
             amount = request.GET.get('amount')
@@ -76,7 +72,7 @@ def get_costs(request):
             return JsonResponse(costs, safe=False)
         else:
             return render(request, 'CostTracker/get_costs.html')
-    
+
+
 def home(request):
     return render(request, 'CostTracker/home.html')
-
